@@ -49,11 +49,11 @@ def main():
 
         for row in csv_reader:
             count_all_lines += 1
-            values = [(col_value if col_value != "NULL" else "") for col_value in row[1:]]
+            values = [(col_value if col_value != "NULL" else "") for col_value in row]
             row_key = generate_row_key()
             column_data = {}
             for i, column_value in enumerate(values):
-                column_name = "cf:" + header[i + 1]
+                column_name = "cf:" + header[i]
                 column_data[column_name] = column_value.encode('utf-8')
             batch_list.append((row_key, column_data))
             count += 1

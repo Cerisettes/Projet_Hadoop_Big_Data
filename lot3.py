@@ -37,10 +37,11 @@ def main():
     with open(file_name, 'r', encoding='utf-8-sig') as csv_file:
         csv_reader = csv.reader(csv_file)
         header = next(csv_reader)
+        print(header)
 
         table_name = file_name.replace(".csv", "")
         log_table_name = "Log_" + table_name
-        create_hbase_table(connection, table_name, header[1:])
+        create_hbase_table(connection, table_name, ["cf"])
         create_hbase_table(connection, log_table_name, ['info'])
 
         batch_size = 1500
@@ -52,7 +53,7 @@ def main():
             row_key = generate_row_key()
             column_data = {}
             for i, column_value in enumerate(values):
-                column_name = '{}:col{}'.format(header[i + 1], i + 1)
+                column_name = "cf:" + header[i + 1]
                 column_data[column_name] = column_value.encode('utf-8')
             batch_list.append((row_key, column_data))
             count += 1
@@ -75,7 +76,7 @@ def main():
     sys.stdout.write("\n")
     end_time = time.time()
 
-    print("{} is finished".format(table_name))
+    print("{} is finished with {} lines inserted".format(table_name, count))
 
     log = {}
 
@@ -84,8 +85,10 @@ def main():
 
     print("{} is finished".format(log_table_name))
 
-    total_duration = (end_time - start_time) / 60
-    print("Total processing : {:.2f} minutes with {}".format(total_duration, batch_size))
+    total_seconds = int(end_time - start_time)
+    minutes = total_seconds // 60
+    seconds = total_seconds % 60
+    print("Total processing : {} minutes and {} seconds with batch size {}".format(minutes, seconds, batch_size))
 
     connection.close()
 

@@ -22,7 +22,7 @@ Le client souhaite obtenir des statistiques plus spécifiques en se concentrant 
 Objectifs
 
 Identifier les 100 meilleures commandes entre 2006 et 2016, en fournissant des détails tels que la ville, le nombre de colis et la somme des "timbrecde".
-Sélectionner 5% des commandes précédentes basées uniquement sur les départements 53, 61 et 28, en excluant les "timbrecli" non renseignés ou à 0. Fournir des informations similaires aux points 1, et générer un graphique de type "pie" au format PDF pour représenter cette segmentation.
+Sélectionner 5% des commandes précédentes basées uniquement sur les départements 53, 61 et 28, en incluant uniquement les "timbrecli" non renseignés ou à 0. Fournir des informations similaires aux points 1, et générer un graphique de type "pie" au format PDF pour représenter cette segmentation.
 Exporter les résultats des points 1 et 2 vers des fichiers Excel pour une analyse plus approfondie.
 
 Lot 3: Mise en Place d'une Base NoSQL et Moteur de Recherche
